@@ -1,3 +1,11 @@
+
+/**
+ * 
+ * @author Just E.A.T.
+ * Questa classe è il prototipo di un oggetto corpo celeste
+ *
+ */
+
 public class CorpoCeleste {
 
     protected double massa;
