@@ -5,9 +5,8 @@ public class SistemaStellare {
 	
 	private Punto centroDiMassa;
 	
-	public SistemaStellare(Stella stella, ElencoPianeti pianetiSistema) {
+	public SistemaStellare(Stella stella) {
 		this.stella = stella;
-		this.pianetiSistema = pianetiSistema;
 	}
 	
 	public String nomeSistema() {
