@@ -8,9 +8,4 @@ public class Luna extends CorpoCeleste{
         super(nome, massa, posizione);
     }
     
-    public CorpoCeleste[] getPercorso(Pianeta pianeta) {
-    	
-    	
-    	return
-    }
 }

@@ -22,7 +22,7 @@ public class Pianeta extends CorpoCeleste{
     	else return false;
     }
     
-    private Luna trovaLuna(String luna) {
+    public Luna trovaLuna(String luna) {
 	   	
     	for(int i = 0; i < lune.size(); i++) {
     		if(lune.get(i).nome.equals(luna))

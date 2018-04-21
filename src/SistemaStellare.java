@@ -65,4 +65,7 @@ public class SistemaStellare {
 		return stella;
 	}
 	
+	public ElencoPianeti getPianetiSistema() {
+		return pianetiSistema;
+	}
 }
