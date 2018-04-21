@@ -42,7 +42,7 @@ public class Main {
             scelta = menu.scegli();
             switch (scelta){
                 case 1:
-                    InputDati.leggiStringa("Inserisci dati pianeta");
+                    sistema.addPianeta(initPianeta());
                     break;
                 case 2:
                     break;
@@ -72,7 +72,7 @@ public class Main {
         massa = InputDati.leggiDoubleConMinimo(String.format(INSERIMENTO_MASSA, nomeStella), MIN_MASSA);
         return new SistemaStellare(new Stella(nomeStella, massa));
     }
-    private static CorpoCeleste initCorpoCeleste(){
+    private static Pianeta initPianeta(){
         String nome;
         double massa, x, y;
         Punto posizone;
@@ -84,6 +84,6 @@ public class Main {
         x = tastiera.nextDouble();
         y = tastiera.nextDouble();
         posizone = new Punto(x, y, nome);
-        return  new CorpoCeleste(nome,massa,posizone);
+        return new Pianeta(nome,massa,posizone);
     }
 }

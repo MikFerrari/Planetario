@@ -1,7 +1,7 @@
 public class SistemaStellare {
 
 	private Stella stella;
-	private ElencoPianeti pianetiSistema;
+	private ElencoPianeti pianetiSistema = new ElencoPianeti();
 	
 	private double massaTotale = 0;
 	private Punto sommaPesataPosizioni = new Punto(0, 0, "Somma Pesata Delle Posizioni");
@@ -65,7 +65,10 @@ public class SistemaStellare {
 		return stella;
 	}
 	
-	public ElencoPianeti getPianetiSistema() {
+	/*public ElencoPianeti getPianetiSistema() {
 		return pianetiSistema;
+	}*/
+	public void addPianeta(Pianeta nuovo){
+		pianetiSistema.addPianeta(nuovo);
 	}
 }
