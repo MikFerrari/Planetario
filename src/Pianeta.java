@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Pianeta extends CorpoCeleste{
 
 	private final static int MAX_LUNE = 5000;
-	private int numeroLune = 0;
+	
     ArrayList<Luna> lune = new ArrayList<Luna>();
 
     public Pianeta(double massa, Punto posizione) {
@@ -15,22 +15,26 @@ public class Pianeta extends CorpoCeleste{
     }
     
     public boolean addLuna(Luna nuova) {
-    	if(numeroLune < MAX_LUNE) {
+    	if(lune.size() < MAX_LUNE) {
     		lune.add(nuova);
-        	numeroLune++;
         	return true;
     	}
-    	else {
-    		return false;
-    	}
-    }
-
-    public void removeLuna(Luna daRimuovere) {
-    	lune.remove(daRimuovere);
-    	numeroLune--;
+    	else return false;
     }
     
-    //Togliere??
+    private Luna trovaLuna(String luna) {
+	   	
+    	for(int i = 0; i < lune.size(); i++) {
+    		if(lune.get(i).nome.equals(luna))
+    			return lune.get(i);
+    	}
+    	return null;
+    }
+
+    public void removeLuna(String daRimuovere) {
+    	lune.remove(trovaLuna(daRimuovere));
+    }
+    
     public Stella getPercorso(SistemaStellare sistema) {
     	return sistema.getStella();
     }

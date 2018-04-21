@@ -1,8 +1,7 @@
-
 /**
  * 
  * @author Just E.A.T.
- * Questa classe Ã¨ il prototipo di un oggetto corpo celeste
+ * Questa classe è il prototipo di un oggetto corpo celeste
  *
  */
 

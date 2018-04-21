@@ -3,29 +3,31 @@ import java.util.ArrayList;
 public class ElencoPianeti {
 	
     private static final int MAX_PIANETI = 26000;
-    private int numeroPianeti = 0;
+    
     ArrayList<Pianeta> pianeti = new ArrayList<Pianeta>();
     
     //default Constructor
 
     public boolean addPianeta(Pianeta nuovo) {
       
-    	if(numeroPianeti < MAX_PIANETI) {
+    	if(pianeti.size() < MAX_PIANETI) {
     		pianeti.add(nuovo);
-        	numeroPianeti++;
         	return true;
     	}
-    	else 
-    		return false;
+    	
+    	else return false;
     }
    
     private Pianeta trovaPianeta(String pianeta) {
-    	Pianeta trovato;
-    	return trovato;
+    	   	
+    	for(int i = 0; i < pianeti.size(); i++) {
+    		if(pianeti.get(i).nome.equals(pianeta))
+    			return pianeti.get(i);
+    	}
+    	return null;
     }
 
     public void removePianeta(String daRimuovere) {
     	pianeti.remove(trovaPianeta(daRimuovere));
-    	numeroPianeti--;
     }
 }
