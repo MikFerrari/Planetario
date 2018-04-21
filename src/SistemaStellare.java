@@ -64,11 +64,12 @@ public class SistemaStellare {
 	public Stella getStella() {
 		return stella;
 	}
-	
-	/*public ElencoPianeti getPianetiSistema() {
-		return pianetiSistema;
-	}*/
-	public void addPianeta(Pianeta nuovo){
-		pianetiSistema.addPianeta(nuovo);
+
+	public boolean addPianeta(Pianeta nuovo){
+		return pianetiSistema.addPianeta(nuovo);
+	}
+
+	public void removePianeta(String nome){
+		pianetiSistema.removePianeta(nome);
 	}
 }

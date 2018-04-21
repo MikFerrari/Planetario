@@ -7,13 +7,12 @@ public class Main {
     private static final String MESSAGGIO_BENVENUTO = "Buongiorno, benvenuto nel programma per la gestione dei sistemi stellari!";
     private static final String INSERIMENTO_NOME_STELLA = "Inserisca il nome della stella ";
     private static final String INSERIMENTO_MASSA = "Inserisca la massa di %s ";
-    private static final String NOME_CORPO_CELESTE = "Inserisca il nome";
+    private static final String NOME_CORPO_CELESTE = "Inserisca il nome ";
     private static final String MESSAGGIO_COORDINATE = "Inserisca le coordinate ";
-
+    private static final String MESSAGGIO_RIMOZIONE= "Inserisca il nome del pianeta da rimuovere";
+    private static final String MESSAGGIO_RIMOZIONE_COMPLETATA = "Il corpo celeste è stato rimosso con successo";
 
     private static final int MIN_MASSA = 0;
-
-
 
     private static final String TITOLO_MENU = "Selezioni un'opzione";
     private static final String AGGIUNTA_PIANETA= "Aggiungere nuovo pianeta";
@@ -47,6 +46,8 @@ public class Main {
                 case 2:
                     break;
                 case 3:
+                    sistema.removePianeta(InputDati.leggiStringa(MESSAGGIO_RIMOZIONE));
+                    System.out.println(MESSAGGIO_RIMOZIONE_COMPLETATA);
                     break;
                 case 4:
                     break;
