@@ -1,11 +1,19 @@
 import it.unibs.fp.mylib.InputDati;
 import it.unibs.fp.mylib.MyMenu;
 
+import java.util.Scanner;
+
 public class Main {
     private static final String MESSAGGIO_BENVENUTO = "Buongiorno, benvenuto nel programma per la gestione dei sistemi stellari!";
-    private static final String INSERIMENTO_NOME_STELLA = "Inserisca il nome della stella";
-    private static final String INSERIMENTO_MASSA = "Inserisca la massa di %s";
+    private static final String INSERIMENTO_NOME_STELLA = "Inserisca il nome della stella ";
+    private static final String INSERIMENTO_MASSA = "Inserisca la massa di %s ";
+    private static final String NOME_CORPO_CELESTE = "Inserisca il nome";
+    private static final String MESSAGGIO_COORDINATE = "Inserisca le coordinate ";
+
+
     private static final int MIN_MASSA = 0;
+
+
 
     private static final String TITOLO_MENU = "Selezioni un'opzione";
     private static final String AGGIUNTA_PIANETA= "Aggiungere nuovo pianeta";
@@ -34,6 +42,7 @@ public class Main {
             scelta = menu.scegli();
             switch (scelta){
                 case 1:
+                    InputDati.leggiStringa("Inserisci dati pianeta");
                     break;
                 case 2:
                     break;
@@ -62,5 +71,19 @@ public class Main {
         nomeStella = InputDati.leggiStringa(INSERIMENTO_NOME_STELLA);
         massa = InputDati.leggiDoubleConMinimo(String.format(INSERIMENTO_MASSA, nomeStella), MIN_MASSA);
         return new SistemaStellare(new Stella(nomeStella, massa));
+    }
+    private static CorpoCeleste initCorpoCeleste(){
+        String nome;
+        double massa, x, y;
+        Punto posizone;
+
+        Scanner tastiera = new Scanner(System.in);
+        nome = InputDati.leggiStringa(NOME_CORPO_CELESTE);
+        massa = InputDati.leggiDoubleConMinimo(String.format(INSERIMENTO_MASSA, nome), MIN_MASSA);
+        System.out.print(MESSAGGIO_COORDINATE);
+        x = tastiera.nextDouble();
+        y = tastiera.nextDouble();
+        posizone = new Punto(x, y, nome);
+        return  new CorpoCeleste(nome,massa,posizone);
     }
 }
