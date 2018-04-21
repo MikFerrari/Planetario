@@ -14,18 +14,27 @@ public class CorpoCeleste {
     protected Punto posizione;
     protected static int contatore = 1;
 
-    CorpoCeleste(double massa, Punto posizione) {
+    public CorpoCeleste(double massa, Punto posizione) {
         nome = "" + contatore++;
         this.massa = massa;
         hash = creaHash();
         this.posizione = posizione;
     }
-
-    CorpoCeleste(String nome, double massa, Punto posizione) {
+    
+    public CorpoCeleste(String nome, double massa, Punto posizione) {
         this.nome = nome;
         this.massa = massa;
         hash = creaHash();
         this.posizione = posizione;
+    }
+    
+    public Punto posizioneRelativa(CorpoCeleste riferimento) {
+   
+    	Punto posizioneRel = new Punto(0,0,"");
+    	posizioneRel.setAscissa(this.getPosizione().getAscissa()-riferimento.getPosizione().getAscissa());
+    	posizioneRel.setOrdinata(this.getPosizione().getOrdinata()-riferimento.getPosizione().getOrdinata());
+    	return posizioneRel;
+    	
     }
 
     private String creaHash(){
@@ -46,6 +55,7 @@ public class CorpoCeleste {
         return hash;
     }
 
+    //metodo posizione assoluta 
     public Punto getPosizione() {
         return posizione;
     }

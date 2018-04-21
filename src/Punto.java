@@ -20,11 +20,6 @@ public class Punto {
 		return "(" + ascissa + "; " + ordinata + ")";
 	}
 	
-	public void stampaCoordinate() {
-		System.out.println("Coordinate del " + nome + ": " + coordinate());
-		
-	}
-	
 	//Calcola la distanza tra due punti
 	
 	public void distanza(Punto p1) {
