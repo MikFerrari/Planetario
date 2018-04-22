@@ -13,15 +13,13 @@ public class CorpoCeleste {
     protected Punto posizione;
     protected static int contatore = 1;
 
-    public CorpoCeleste(double massa, Punto posizione) {
-        nome = "" + contatore++;
-        this.massa = massa;
-        hash = creaHash();
-        this.posizione = posizione;
-    }
     
     public CorpoCeleste(String nome, double massa, Punto posizione) {
-        this.nome = nome;
+        
+    	if(nome.equals(""))
+        	this.nome = "" + contatore++;
+        else this.nome = nome;
+        
         this.massa = massa;
         hash = creaHash();
         this.posizione = posizione;
@@ -37,12 +35,18 @@ public class CorpoCeleste {
     }
 
     private String creaHash(){
-        String hash = "";
-
+        String hash = "" + nome + hashCode();
         return hash;
     }
 
-    public double getMassa() {
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((hash == null) ? 0 : hash.hashCode());
+		return result;
+	}
+
+	public double getMassa() {
         return massa;
     }
 
@@ -69,5 +73,11 @@ public class CorpoCeleste {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    
+    public boolean controlloCoincidenza(CorpoCeleste altro) {
+    	if(posizione.getAscissa() == altro.posizione.getAscissa() && posizione.getOrdinata() == altro.posizione.getOrdinata())
+    		return true;
+    	else return false;
     }
 }

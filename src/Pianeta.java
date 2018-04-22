@@ -6,10 +6,6 @@ public class Pianeta extends CorpoCeleste{
 	
     ArrayList<Luna> lune = new ArrayList<Luna>();
 
-    public Pianeta(double massa, Punto posizione) {
-        super(massa, posizione);
-    }
-
     public Pianeta(String nome, double massa, Punto posizione) {
         super(nome, massa, posizione);
     }
@@ -22,7 +18,7 @@ public class Pianeta extends CorpoCeleste{
     	else return false;
     }
     
-    private Luna trovaLuna(String luna) {
+    public Luna trovaLuna(String luna) {
 	   	
     	for(int i = 0; i < lune.size(); i++) {
     		if(lune.get(i).nome.equals(luna))
