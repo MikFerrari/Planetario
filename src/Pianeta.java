@@ -21,7 +21,7 @@ public class Pianeta extends CorpoCeleste{
     public Luna trovaLuna(String luna) {
 	   	
     	for(int i = 0; i < lune.size(); i++) {
-    		if(lune.get(i).nome.equals(luna))
+    		if(lune.get(i).getNome().equals(luna))
     			return lune.get(i);
     	}
     	return null;
@@ -29,6 +29,10 @@ public class Pianeta extends CorpoCeleste{
 
     public void removeLuna(String daRimuovere) {
     	lune.remove(trovaLuna(daRimuovere));
+    }
+    
+    public ArrayList<Luna> getArrayListLune() {
+    	return lune;
     }
     
     public Stella getPercorso(SistemaStellare sistema) {

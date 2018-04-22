@@ -12,6 +12,8 @@ public class CorpoCeleste {
     protected String hash;
     protected Punto posizione;
     protected static int contatore = 1;
+    
+    private ElencoPianeti pianetiSistema = new ElencoPianeti();
 
     
     public CorpoCeleste(String nome, double massa, Punto posizione) {
@@ -25,11 +27,31 @@ public class CorpoCeleste {
         this.posizione = posizione;
     }
     
-    public Punto posizioneRelativa(CorpoCeleste riferimento) {
+    
+//scorre l'arraylist di pianeti e i relativi arraylist di lune alla ricerca del corpo celeste che corrisponde al nome cercato
+    
+    public CorpoCeleste trovaCorpoCeleste(String nomeCorpoCeleste) {
+    	
+    	for(int i = 0; i < pianetiSistema.pianeti.size(); i++) {
+    		if(pianetiSistema.pianeti.get(i).getNome().equals(nomeCorpoCeleste))
+    			return pianetiSistema.pianeti.get(i);
+    		else {
+    			for(int j = 0; j < pianetiSistema.pianeti.get(i).lune.size(); j++) {
+    				if(pianetiSistema.pianeti.get(i).lune.get(j).getNome().equals(nomeCorpoCeleste))
+    					return pianetiSistema.pianeti.get(i).lune.get(j);
+    			}  
+    		}
+    	}
+    	return null;  	
+    }
+    
+//in base al nome del corpo celeste di riferimento richiama il metodo per trovare il corpo con quel nome e una volta trovato ne calcola la posizione relativa
+    
+    public Punto posizioneRelativa(String riferimento) {
    
-    	Punto posizioneRel = new Punto(0,0,"");
-    	posizioneRel.setAscissa(this.getPosizione().getAscissa()-riferimento.getPosizione().getAscissa());
-    	posizioneRel.setOrdinata(this.getPosizione().getOrdinata()-riferimento.getPosizione().getOrdinata());
+    	Punto posizioneRel = new Punto(0,0,"Posizione del corpo celeste " + this.getPosizione() + " rispetto al corpo celeste " + trovaCorpoCeleste(riferimento).getNome());
+    	posizioneRel.setAscissa(this.getPosizione().getAscissa()-trovaCorpoCeleste(riferimento).getPosizione().getAscissa());
+    	posizioneRel.setOrdinata(this.getPosizione().getOrdinata()-trovaCorpoCeleste(riferimento).getPosizione().getOrdinata());
     	return posizioneRel;
     	
     }

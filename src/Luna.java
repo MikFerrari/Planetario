@@ -5,4 +5,6 @@ public class Luna extends CorpoCeleste{
         super(nome, massa, posizione);
     }
 
+    
+    
 }
