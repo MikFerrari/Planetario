@@ -3,6 +3,8 @@ import it.unibs.fp.mylib.MyMenu;
 
 import java.util.Scanner;
 
+//test di push su git
+
 public class Main {
     private static final String MESSAGGIO_BENVENUTO = "Buongiorno, benvenuto nel programma per la gestione dei sistemi stellari!";
     private static final String INSERIMENTO_NOME_STELLA = "Inserisca il nome della stella ";
