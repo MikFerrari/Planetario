@@ -16,7 +16,9 @@ public class SistemaStellare {
 		return "Sistema della stella " + stella.getNome();
 	}
 	
-	public double massaTotale() { 
+//il nome massaTotale del metodo si confondeva con l'attributo massaTotale
+	
+	public void calcoloMassaTotale() { 
 		double massa = 0;
 		for(int i = 0; i < pianetiSistema.pianeti.size(); i++) {
 	
@@ -29,22 +31,25 @@ public class SistemaStellare {
 		}
 		massa += stella.getMassa(); //aggiunge la massa della stella
 		
-		return massa;
+		massaTotale = massa;
 	}
 	
-	public void sommaPesataPosizioni() {
+
+//il nome sommaPesataPosizioni del metodo si confondeva con l'attributo sommaPesataPosizioni
+
+	public void calcoloSommaPesataPosizioni() {
 		
 		double ascissa = 0;
 		double ordinata = 0;
 		
 		for(int i = 0; i < pianetiSistema.pianeti.size(); i++) {
 			
-			ascissa = pianetiSistema.pianeti.get(i).getPosizione().getAscissa() * pianetiSistema.pianeti.get(i).getMassa();
-			ordinata = pianetiSistema.pianeti.get(i).getPosizione().getOrdinata() * pianetiSistema.pianeti.get(i).getMassa();
+			ascissa += pianetiSistema.pianeti.get(i).getPosizione().getAscissa() * pianetiSistema.pianeti.get(i).getMassa();
+			ordinata += pianetiSistema.pianeti.get(i).getPosizione().getOrdinata() * pianetiSistema.pianeti.get(i).getMassa();
 			
 			for(int j = 0; j < pianetiSistema.pianeti.get(i).lune.size(); j++) {
-				ascissa += pianetiSistema.pianeti.get(i).lune.get(j).getPosizione().getOrdinata() *
-							   pianetiSistema.pianeti.get(i).lune.get(j).getMassa();
+				ascissa += pianetiSistema.pianeti.get(i).lune.get(j).getPosizione().getAscissa() * pianetiSistema.pianeti.get(i).lune.get(j).getMassa();
+				ordinata += pianetiSistema.pianeti.get(i).lune.get(j).getPosizione().getOrdinata() * pianetiSistema.pianeti.get(i).lune.get(j).getMassa();
 			}
 					
 		}
@@ -52,7 +57,9 @@ public class SistemaStellare {
 		sommaPesataPosizioni.setOrdinata(ordinata);
 	}
 	
-	public void centroDiMassa() {
+//il nome centroDiMassa del metodo si confondeva con l'attributo centroDiMassa
+	
+	public void calcoloCentroDiMassa() {
 		
 		double ascissa = sommaPesataPosizioni.getAscissa() / massaTotale;
 		double ordinata = sommaPesataPosizioni.getOrdinata() / massaTotale;
