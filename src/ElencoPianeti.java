@@ -33,12 +33,6 @@ public class ElencoPianeti {
     	pianeti.remove(trovaPianeta(daRimuovere));
     }
     
-//getter dell'array pianeti che viene usato del metodo trovaCorpoCeleste 
-    
-    public ArrayList<Pianeta> getArrayListPianeti() {
-    	return pianeti;
-    }
-    
 //Ho pensato di mettere un array di stringhe e non di corpi celesti, perché alla fine il percorso è solo da stampare    
 //e di includere la stella anche se è ovvio, perché sul pdf lo specifica.
     
