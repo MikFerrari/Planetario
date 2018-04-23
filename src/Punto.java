@@ -22,10 +22,10 @@ public class Punto {
 	
 	//Calcola la distanza tra due punti
 	
-	public void distanza(Punto p1) {
+	public double distanza(Punto p1) {
 		double differenzaQuadrati = Math.pow((p1.ascissa-ascissa),2)+Math.pow((p1.ordinata-ordinata),2);
-		double risultato = Math.sqrt(differenzaQuadrati);	
-		System.out.println("La distanza tra il " + nome + " e il " + p1.nome + " è: " + cifre.format(risultato));
+		return  Math.sqrt(differenzaQuadrati);	
+		
 	}
 	
 	public double getAscissa() {
