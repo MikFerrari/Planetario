@@ -23,16 +23,16 @@ public class Main {
     private static final String RIMOZIONE_LUNA = "Rimuovere luna";
     private static final String RICERCA_CORPO_CELESTE = "Ricerca corpo celeste";
     private static final String LUNE_ORBITANTI = "Visualizzazione lune orbitanti intorno da un pianeta";
-    private static final String CALCOLO_CENTRO= "Calcolo del centro di massa di %s";
+    private static final String CALCOLO_CENTRO= "Calcolo del centro di massa";
     private static final String CALCOLO_PERCORSO = "Calcolo percorso verso una luna";
     private static final String MESSAGGIO_RIMOZIONE_FALLITO ="Operazione fallita: corpo celeste non trovato";
 
     private static final String[] OPZIONI_MENU = {
+            AGGIUNTA_RIMOZIONE,
             RICERCA_CORPO_CELESTE, LUNE_ORBITANTI,
             CALCOLO_CENTRO, CALCOLO_PERCORSO
             };
     private static final String[] OPZIONI_MENU_ADD_REMOVE = {
-            AGGIUNTA_RIMOZIONE,
             AGGIUNTA_PIANETA,AGGIUNTA_LUNA,
             RIMOZIONE_PIANETA,RIMOZIONE_LUNA
             };
@@ -51,7 +51,8 @@ public class Main {
                 case 1:
                     switch (menuAddRemove.scegli()){
                         case 1:
-                            sistema.addPianeta(initPianeta());
+                            if(sistema.addPianeta(initPianeta()))
+                                
                             break;
                         case 2:
                             break;
