@@ -29,8 +29,10 @@ public class ElencoPianeti {
     	return null;
     }
 
-    public void removePianeta(String daRimuovere) {
-    	pianeti.remove(trovaPianeta(daRimuovere));
+    public Pianeta removePianeta(String daRimuovere) {
+    	Pianeta rimosso = trovaPianeta(daRimuovere);
+    	pianeti.remove(rimosso);
+    	return rimosso;
     }
     
 //Ho pensato di mettere un array di stringhe e non di corpi celesti, perché alla fine il percorso è solo da stampare    

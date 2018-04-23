@@ -38,6 +38,7 @@ public class Main {
         MyMenu menu = new MyMenu(TITOLO_MENU,OPZIONI_MENU);
         SistemaStellare sistema = init();
         nomeSistema = sistema.nomeSistema();
+
         do {
             scelta = menu.scegli();
             switch (scelta){
