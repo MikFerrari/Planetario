@@ -122,6 +122,9 @@ public class SistemaStellare {
 	*/
 
 	public boolean addPianeta(Pianeta nuovo) {
+		if(sovrapposizioni(nuovo)) {
+			return false;
+		}
 		rimozione = false;
 		massaTotale += nuovo.massa;
 		aggiornaSommaPesata(nuovo);
@@ -142,6 +145,9 @@ public class SistemaStellare {
 	}
 	
 	public boolean addLuna(String riferimento, Luna nuovaLuna) {
+		if(sovrapposizioni(nuovaLuna)) {
+			return false;
+		}
 		rimozione = false;
 		massaTotale += nuovaLuna.massa;
 		aggiornaSommaPesata(nuovaLuna);
@@ -159,6 +165,20 @@ public class SistemaStellare {
 			return true;
 		}
 		else return false;
+	}
+	
+	public boolean sovrapposizioni(CorpoCeleste nuovo) {
+		for(int i = 0; i < pianetiSistema.pianeti.size(); i++) {
+			if(nuovo.controlloCoincidenza(pianetiSistema.pianeti.get(i)))
+				return true;
+			else {			
+				for(int j = 0; j < pianetiSistema.pianeti.get(i).lune.size(); j++) {
+					if(nuovo.controlloCoincidenza(pianetiSistema.pianeti.get(i).lune.get(j)))
+						return true;
+				}	
+			}
+		}
+		return false;
 	}
 	
 }
