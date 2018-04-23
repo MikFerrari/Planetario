@@ -12,8 +12,6 @@ public class CorpoCeleste {
     protected String hash;
     protected Punto posizione;
     protected static int contatore = 1;
-    
-    private ElencoPianeti pianetiSistema = new ElencoPianeti();
 
     
     public CorpoCeleste(String nome, double massa, Punto posizione) {
@@ -30,28 +28,15 @@ public class CorpoCeleste {
     
 //scorre l'arraylist di pianeti e i relativi arraylist di lune alla ricerca del corpo celeste che corrisponde al nome cercato
     
-    public CorpoCeleste trovaCorpoCeleste(String nomeCorpoCeleste) {
-    	
-    	for(int i = 0; i < pianetiSistema.pianeti.size(); i++) {
-    		if(pianetiSistema.pianeti.get(i).getNome().equals(nomeCorpoCeleste))
-    			return pianetiSistema.pianeti.get(i);
-    		else {
-    			for(int j = 0; j < pianetiSistema.pianeti.get(i).lune.size(); j++) {
-    				if(pianetiSistema.pianeti.get(i).lune.get(j).getNome().equals(nomeCorpoCeleste))
-    					return pianetiSistema.pianeti.get(i).lune.get(j);
-    			}  
-    		}
-    	}
-    	return null;  	
-    }
+
     
 //in base al nome del corpo celeste di riferimento richiama il metodo per trovare il corpo con quel nome e una volta trovato ne calcola la posizione relativa
     
-    public Punto posizioneRelativa(String riferimento) {
+    public Punto posizioneRelativa(Pianeta riferimento) {
    
-    	Punto posizioneRel = new Punto(0,0,"Posizione del corpo celeste " + this.getPosizione() + " rispetto al corpo celeste " + trovaCorpoCeleste(riferimento).getNome());
-    	posizioneRel.setAscissa(this.getPosizione().getAscissa()-trovaCorpoCeleste(riferimento).getPosizione().getAscissa());
-    	posizioneRel.setOrdinata(this.getPosizione().getOrdinata()-trovaCorpoCeleste(riferimento).getPosizione().getOrdinata());
+    	Punto posizioneRel = new Punto(0,0,"Posizione del corpo celeste " + this.getPosizione() + " rispetto al corpo celeste " + riferimento.getNome());
+    	posizioneRel.setAscissa(this.getPosizione().getAscissa()-riferimento.getPosizione().getAscissa());
+    	posizioneRel.setOrdinata(this.getPosizione().getOrdinata()-riferimento.getPosizione().getOrdinata());
     	return posizioneRel;
     	
     }
@@ -98,8 +83,14 @@ public class CorpoCeleste {
     }
     
     public boolean controlloCoincidenza(CorpoCeleste altro) {
-    	if(posizione.getAscissa() == altro.posizione.getAscissa() && posizione.getOrdinata() == altro.posizione.getOrdinata())
-    		return true;
-    	else return false;
+        return (posizione.getAscissa() == altro.posizione.getAscissa()) && (posizione.getOrdinata() == altro.posizione.getOrdinata());
+    }
+
+    public boolean controlloNomi(CorpoCeleste altro) {
+        return nome.equals(altro.nome);
+    }
+
+    public String toString() {
+        return "\n" + nome + "\nMassa: " + massa + "\nPosizione" + posizione.coordinate() + "\n";
     }
 }

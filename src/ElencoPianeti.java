@@ -3,9 +3,8 @@ import java.util.ArrayList;
 public class ElencoPianeti {
 	
     private static final int MAX_PIANETI = 26000;
-    private static final int ELEMENTI_PERCORSO = 3;
+    private static final int ELEMENTI_PERCORSO = 2;
     
-    private Stella stella;
     ArrayList<Pianeta> pianeti = new ArrayList<Pianeta>();
     
     //default Constructor
@@ -44,9 +43,8 @@ public class ElencoPianeti {
     	
     	for(int i = 0; i  < pianeti.size(); i++) {
     		if(pianeti.get(i).lune.contains(pianeti.get(i).trovaLuna(diQualeLuna))) {
-    			percorso[0] = stella;
-    			percorso[1] = pianeti.get(i);
-    			percorso[2] = pianeti.get(i).trovaLuna(diQualeLuna);
+    			percorso[0] = pianeti.get(i);
+    			percorso[1] = pianeti.get(i).trovaLuna(diQualeLuna);
     			return percorso;
     		}    			
     	}

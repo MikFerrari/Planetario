@@ -4,7 +4,7 @@ public class Punto {
 
 	//Riduce il numero di cifre decimali significative visibili a 1 (0.0)
 	
-	DecimalFormat cifre= new DecimalFormat("#,###,##0.0");
+	DecimalFormat cifre= new DecimalFormat("#,###,##0.000");
 	
 	private double ascissa;
 	private double ordinata;
@@ -17,7 +17,7 @@ public class Punto {
 	}
 	
 	public String coordinate() {
-		return "(" + ascissa + "; " + ordinata + ")";
+		return "(" + cifre.format(ascissa) + "; " + cifre.format(ordinata) + ")";
 	}
 	
 	//Calcola la distanza tra due punti

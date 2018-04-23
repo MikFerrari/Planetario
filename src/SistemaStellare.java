@@ -20,27 +20,16 @@ public class SistemaStellare {
 	
 //il nome massaTotale del metodo si confondeva con l'attributo massaTotale
 	
-	public void calcoloMassaTotale() { 
-		double massa = 0;
-		for(int i = 0; i < pianetiSistema.pianeti.size(); i++) {
-	
-			massa += pianetiSistema.pianeti.get(i).getMassa(); //massa le masse di tutti i pianeti
-			
-			for(int j = 0; j < pianetiSistema.pianeti.get(i).lune.size(); j++) {
-				massa += pianetiSistema.pianeti.get(i).lune.get(j).getMassa(); //massa le masse di tutte le lune orbitanti attorno a un pianeta
-			}
-					
-		}
-		massa += stella.getMassa(); //aggiunge la massa della stella
-		
-		massaTotale = massa;
+	public void initMassaTotale() {
+		massaTotale = stella.getMassa(); //aggiunge la massa della stella
+
 	}
-	
+
 
 //il nome sommaPesataPosizioni del metodo si confondeva con l'attributo sommaPesataPosizioni
 
 	public void calcoloSommaPesataPosizioni() {
-		
+
 		double ascissa = 0;
 		double ordinata = 0;
 		
@@ -68,12 +57,12 @@ public class SistemaStellare {
 		ordinata = sommaPesataPosizioni.getOrdinata();
 		
 		if(!rimozione) {
-			ascissa += nuovo.getPosizione().getAscissa() * nuovo.getMassa();
-			ordinata += nuovo.getPosizione().getOrdinata() * nuovo.getMassa();
+			ascissa += (nuovo.getPosizione().getAscissa() * nuovo.getMassa());
+			ordinata += (nuovo.getPosizione().getOrdinata() * nuovo.getMassa());
 		}
 		else {
-			ascissa -= nuovo.getPosizione().getAscissa() * nuovo.getMassa();
-			ordinata -= nuovo.getPosizione().getOrdinata() * nuovo.getMassa();
+			ascissa -= (nuovo.getPosizione().getAscissa() * nuovo.getMassa());
+			ordinata -= (nuovo.getPosizione().getOrdinata() * nuovo.getMassa());
 		}
 		
 		sommaPesataPosizioni.setAscissa(ascissa);
@@ -85,8 +74,8 @@ public class SistemaStellare {
 	
 	public void calcoloCentroDiMassa() {
 		
-		double ascissa = sommaPesataPosizioni.getAscissa() / massaTotale;
-		double ordinata = sommaPesataPosizioni.getOrdinata() / massaTotale;
+		double ascissa = (sommaPesataPosizioni.getAscissa() / massaTotale);
+		double ordinata = (sommaPesataPosizioni.getOrdinata() / massaTotale);
 		
 		centroDiMassa.setAscissa(ascissa);
 		centroDiMassa.setOrdinata(ordinata);
@@ -102,7 +91,7 @@ public class SistemaStellare {
 
 
 	public boolean addPianeta(Pianeta nuovo) {
-		if(sovrapposizioni(nuovo)) {
+		if(sovrapposizioni(nuovo) || nomiUguali(nuovo)) {
 			return false;
 		}
 		rimozione = false;
@@ -125,7 +114,7 @@ public class SistemaStellare {
 	}
 	
 	public boolean addLuna(String riferimento, Luna nuovaLuna) {
-		if(sovrapposizioni(nuovaLuna)) {
+		if(sovrapposizioni(nuovaLuna) || nomiUguali(nuovaLuna) || pianetiSistema.trovaPianeta(riferimento) == null) {
 			return false;
 		}
 		rimozione = false;
@@ -148,17 +137,55 @@ public class SistemaStellare {
 	}
 	
 	public boolean sovrapposizioni(CorpoCeleste nuovo) {
+		if(nuovo.controlloCoincidenza(stella))
+			return true;
 		for(int i = 0; i < pianetiSistema.pianeti.size(); i++) {
 			if(nuovo.controlloCoincidenza(pianetiSistema.pianeti.get(i)))
 				return true;
-			else {			
+			else {
 				for(int j = 0; j < pianetiSistema.pianeti.get(i).lune.size(); j++) {
 					if(nuovo.controlloCoincidenza(pianetiSistema.pianeti.get(i).lune.get(j)))
 						return true;
-				}	
+				}
 			}
 		}
 		return false;
 	}
-	
+
+	public boolean nomiUguali(CorpoCeleste nuovo) {
+		for(int i = 0; i < pianetiSistema.pianeti.size(); i++) {
+			if(nuovo.controlloNomi(pianetiSistema.pianeti.get(i)))
+				return true;
+			else {
+				for(int j = 0; j < pianetiSistema.pianeti.get(i).lune.size(); j++) {
+					if(nuovo.controlloNomi(pianetiSistema.pianeti.get(i).lune.get(j)))
+						return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public CorpoCeleste trovaCorpoCeleste(String nomeCorpoCeleste) {
+
+		for(int i = 0; i < pianetiSistema.pianeti.size(); i++) {
+			if(pianetiSistema.pianeti.get(i).getNome().equals(nomeCorpoCeleste))
+				return pianetiSistema.pianeti.get(i);
+			else {
+				for(int j = 0; j < pianetiSistema.pianeti.get(i).lune.size(); j++) {
+					if(pianetiSistema.pianeti.get(i).lune.get(j).getNome().equals(nomeCorpoCeleste))
+						return pianetiSistema.pianeti.get(i).lune.get(j);
+				}
+			}
+		}
+		return null;
+	}
+
+	public Pianeta trovaPianeta(String ricercato) {
+		return pianetiSistema.trovaPianeta(ricercato);
+	}
+
+	public CorpoCeleste[] getPercorso(String luna) {
+		return pianetiSistema.getPercorso(luna);
+	}
 }

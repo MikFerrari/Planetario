@@ -32,9 +32,12 @@ public class Pianeta extends CorpoCeleste{
     	lune.remove(rimossa);
     	return rimossa;
     }
-    
-    
-    public Stella getPercorso(SistemaStellare sistema) {
+
+	public ArrayList<Luna> getLune() {
+		return lune;
+	}
+
+	public Stella getPercorso(SistemaStellare sistema) {
     	return sistema.getStella();
     }
     
