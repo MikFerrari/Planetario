@@ -27,8 +27,10 @@ public class Pianeta extends CorpoCeleste{
     	return null;
     }
 
-    public void removeLuna(String daRimuovere) {
-    	lune.remove(trovaLuna(daRimuovere));
+    public Luna removeLuna(String daRimuovere) {
+    	Luna rimossa = trovaLuna(daRimuovere);
+    	lune.remove(rimossa);
+    	return rimossa;
     }
     
     
