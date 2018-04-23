@@ -71,12 +71,43 @@ public class SistemaStellare {
 	public Stella getStella() {
 		return stella;
 	}
+/*
+	private void setCentroDiMassa(Punto centroDiMassa) {
+		this.centroDiMassa = centroDiMassa;
+	}
 
-	public boolean addPianeta(Pianeta nuovo){
+	private void setMassaTotale(double massaTotale) {
+		this.massaTotale = massaTotale;
+	}
+
+	private void setSommaPesataPosizioni(Punto sommaPesataPosizioni) {
+		this.sommaPesataPosizioni = sommaPesataPosizioni;
+	}
+
+	private double getMassaTotale() {
+		return massaTotale;
+	}
+
+	public Punto getCentroDiMassa() {
+		return centroDiMassa;
+	}
+
+	private Punto getSommaPesataPosizioni() {
+		return sommaPesataPosizioni;
+	}
+	*/
+
+	public boolean addPianeta(Pianeta nuovo) {
+		massaTotale += nuovo.massa;
+		//aggiorno somma pesata
+		calcoloCentroDiMassa();
 		return pianetiSistema.addPianeta(nuovo);
 	}
 
-	public void removePianeta(String nome){
-		pianetiSistema.removePianeta(nome);
+	public void removePianeta(String nome) {
+		Pianeta rimosso = pianetiSistema.removePianeta(nome);
+		massaTotale -= rimosso.massa;
+		//aggiorno somma pesata
+		calcoloCentroDiMassa();
 	}
 }
