@@ -3,6 +3,8 @@ public class SistemaStellare {
 	private Stella stella;
 	private ElencoPianeti pianetiSistema = new ElencoPianeti();
 	
+	private boolean rimozione;
+	
 	private double massaTotale = 0;
 	private Punto sommaPesataPosizioni = new Punto(0, 0, "Somma Pesata Delle Posizioni");
 	private Punto centroDiMassa = new Punto(0, 0, "Centro Di Massa");
@@ -57,15 +59,27 @@ public class SistemaStellare {
 		sommaPesataPosizioni.setOrdinata(ordinata);
 	}
 	
-	/*public void aggiornaSommaPesata(Pianeta nuovo) {
+	private void aggiornaSommaPesata(CorpoCeleste nuovo) {
 		
-		double ascissa;
-		double ordinata;
+		double ascissa = 0;
+		double ordinata = 0;
 		
-		ascissa += nuovo.getPosizione().getAscissa() * nuovo.getMassa();
-		ordinata += nuovo.è
+		ascissa = sommaPesataPosizioni.getAscissa();
+		ordinata = sommaPesataPosizioni.getOrdinata();
 		
-	}*/
+		if(!rimozione) {
+			ascissa += nuovo.getPosizione().getAscissa() * nuovo.getMassa();
+			ordinata += nuovo.getPosizione().getOrdinata() * nuovo.getMassa();
+		}
+		else {
+			ascissa -= nuovo.getPosizione().getAscissa() * nuovo.getMassa();
+			ordinata -= nuovo.getPosizione().getOrdinata() * nuovo.getMassa();
+		}
+		
+		sommaPesataPosizioni.setAscissa(ascissa);
+		sommaPesataPosizioni.setOrdinata(ordinata);
+		
+	}
 	
 //il nome centroDiMassa del metodo si confondeva con l'attributo centroDiMassa
 	
@@ -108,17 +122,19 @@ public class SistemaStellare {
 	*/
 
 	public boolean addPianeta(Pianeta nuovo) {
+		rimozione = false;
 		massaTotale += nuovo.massa;
-		//aggiorno somma pesata
+		aggiornaSommaPesata(nuovo);
 		calcoloCentroDiMassa();
 		return pianetiSistema.addPianeta(nuovo);
 	}
 
 	public boolean removePianeta(String nome) {
+		rimozione = true;
 		Pianeta rimosso = pianetiSistema.removePianeta(nome);
 		if(rimosso != null) {
 			massaTotale -= rimosso.massa;
-			//aggiorno somma pesata
+			aggiornaSommaPesata(rimosso);
 			calcoloCentroDiMassa();
 			return true;
 		}
@@ -126,17 +142,19 @@ public class SistemaStellare {
 	}
 	
 	public boolean addLuna(String riferimento, Luna nuovaLuna) {
+		rimozione = false;
 		massaTotale += nuovaLuna.massa;
-		//aggiorno somma pesata
+		aggiornaSommaPesata(nuovaLuna);
 		calcoloCentroDiMassa();
 		return pianetiSistema.trovaPianeta(riferimento).addLuna(nuovaLuna);
 	}
 	
 	public boolean removeLuna(String riferimento, String nomeLuna) {
+		rimozione = true;
 		Luna rimossa = pianetiSistema.trovaPianeta(riferimento).removeLuna(nomeLuna);
 		if(rimossa != null) {
 			massaTotale -= rimossa.massa;
-			//aggiorno somma pesata
+			aggiornaSommaPesata(rimossa);
 			calcoloCentroDiMassa();
 			return true;
 		}
