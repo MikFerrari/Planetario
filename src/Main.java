@@ -13,7 +13,7 @@ public class Main {
     private static final String MESSAGGIO_RIMOZIONE= "Inserisca il nome del pianeta da rimuovere";
     private static final String MESSAGGIO_RIMOZIONE_COMPLETATA = "Il corpo celeste è stato rimosso con successo";
     private static final String AGGIUNTA_RIMOZIONE = "Aggiungere/Rimuovere corpo celeste";
-
+    private static final String MESSAGGIO_CENTRO = "Il centro di massa del sistema stellare è: ";
     private static final int MIN_MASSA = 0;
 
     private static final String TITOLO_MENU = "Selezioni un'opzione";
@@ -26,7 +26,9 @@ public class Main {
     private static final String CALCOLO_CENTRO= "Calcolo del centro di massa";
     private static final String CALCOLO_PERCORSO = "Calcolo percorso verso una luna";
     private static final String MESSAGGIO_RIMOZIONE_FALLITO ="Operazione fallita: corpo celeste non trovato";
-
+    private static final String SUCCESO_CREAZIONE = "Corpo celeste creato con successo!";
+    private static final String MESSAGGIO_LUNA = "Inserisci il pianeta intorno al quale orbita la luna: ";
+    private static final String CREAZIONE_IMPOSSIBILE = "Impossibile creare corpo celeste";
     private static final String[] OPZIONI_MENU = {
             AGGIUNTA_RIMOZIONE,
             RICERCA_CORPO_CELESTE, LUNE_ORBITANTI,
@@ -39,12 +41,9 @@ public class Main {
 
     public static void main(String[] args) {
         int scelta;
-        String nomeSistema;
         MyMenu menu = new MyMenu(TITOLO_MENU, OPZIONI_MENU);
         MyMenu menuAddRemove = new MyMenu(TITOLO_MENU, OPZIONI_MENU_ADD_REMOVE);
         SistemaStellare sistema = init();
-        nomeSistema = sistema.nomeSistema();
-
         do {
             scelta = menu.scegli();
             switch (scelta){
@@ -52,9 +51,15 @@ public class Main {
                     switch (menuAddRemove.scegli()){
                         case 1:
                             if(sistema.addPianeta(initPianeta()))
-                                
+                                System.out.println(SUCCESO_CREAZIONE);
+                             else
+                                System.out.println(CREAZIONE_IMPOSSIBILE);
                             break;
                         case 2:
+                            if (sistema.addLuna(InputDati.leggiStringa(MESSAGGIO_LUNA), initLuna()))
+                                System.out.println(SUCCESO_CREAZIONE);
+                            else
+                                System.out.println(CREAZIONE_IMPOSSIBILE);
                             break;
                         case 3:
                             if(sistema.removePianeta(InputDati.leggiStringa(MESSAGGIO_RIMOZIONE)))
@@ -63,6 +68,10 @@ public class Main {
                                 System.out.println(MESSAGGIO_RIMOZIONE_FALLITO);
                             break;
                         case 4:
+                            if(sistema.removeLuna(InputDati.leggiStringa(MESSAGGIO_LUNA), InputDati.leggiStringa(MESSAGGIO_RIMOZIONE)))
+                                System.out.println(MESSAGGIO_RIMOZIONE_COMPLETATA);
+                            else
+                                System.out.println(MESSAGGIO_RIMOZIONE_FALLITO);
                             break;
                         default:
                             break;
@@ -74,6 +83,7 @@ public class Main {
                 case 3:
 
                 case 4:
+                    System.out.println(MESSAGGIO_CENTRO + sistema.getCentroDiMassa().coordinate());
                     break;
                 case 5:
                     break;
