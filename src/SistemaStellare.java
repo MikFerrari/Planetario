@@ -57,6 +57,16 @@ public class SistemaStellare {
 		sommaPesataPosizioni.setOrdinata(ordinata);
 	}
 	
+	/*public void aggiornaSommaPesata(Pianeta nuovo) {
+		
+		double ascissa;
+		double ordinata;
+		
+		ascissa += nuovo.getPosizione().getAscissa() * nuovo.getMassa();
+		ordinata += nuovo.è
+		
+	}*/
+	
 //il nome centroDiMassa del metodo si confondeva con l'attributo centroDiMassa
 	
 	public void calcoloCentroDiMassa() {
@@ -104,10 +114,33 @@ public class SistemaStellare {
 		return pianetiSistema.addPianeta(nuovo);
 	}
 
-	public void removePianeta(String nome) {
+	public boolean removePianeta(String nome) {
 		Pianeta rimosso = pianetiSistema.removePianeta(nome);
-		massaTotale -= rimosso.massa;
+		if(rimosso != null) {
+			massaTotale -= rimosso.massa;
+			//aggiorno somma pesata
+			calcoloCentroDiMassa();
+			return true;
+		}
+		else return false;
+	}
+	
+	public boolean addLuna(String riferimento, Luna nuovaLuna) {
+		massaTotale += nuovaLuna.massa;
 		//aggiorno somma pesata
 		calcoloCentroDiMassa();
+		return pianetiSistema.trovaPianeta(riferimento).addLuna(nuovaLuna);
 	}
+	
+	public boolean removeLuna(String riferimento, String nomeLuna) {
+		Luna rimossa = pianetiSistema.trovaPianeta(riferimento).removeLuna(nomeLuna);
+		if(rimossa != null) {
+			massaTotale -= rimossa.massa;
+			//aggiorno somma pesata
+			calcoloCentroDiMassa();
+			return true;
+		}
+		else return false;
+	}
+	
 }
