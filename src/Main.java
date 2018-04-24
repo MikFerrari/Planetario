@@ -22,7 +22,7 @@ public class Main {
     private static final String RIMOZIONE_PIANETA = "Rimuovere pianeta ";
     private static final String RIMOZIONE_LUNA = "Rimuovere luna";
     private static final String RICERCA_CORPO_CELESTE = "Ricerca corpo celeste";
-    private static final String LUNE_ORBITANTI = "Visualizzazione lune orbitanti intorno da un pianeta";
+    private static final String LUNE_ORBITANTI = "Visualizzazione lune orbitanti intorno a un pianeta";
     private static final String CALCOLO_CENTRO= "Calcolo del centro di massa";
     private static final String CALCOLO_PERCORSO = "Calcolo percorso verso una luna";
     private static final String MESSAGGIO_RIMOZIONE_FALLITO ="Operazione fallita: corpo celeste non trovato";
@@ -49,11 +49,11 @@ public class Main {
         sistema.initMassaTotale();
         do {
             scelta = menu.scegli();
-            switch (scelta){
+            switch (scelta) {
                 case 1:
-                    switch (menuAddRemove.scegli()){
+                    switch (menuAddRemove.scegli()) {
                         case 1:
-                            if(sistema.addPianeta(initPianeta()))
+                            if (sistema.addPianeta(initPianeta()))
                                 System.out.println(SUCCESO_CREAZIONE);
                             else
                                 System.out.println(CREAZIONE_IMPOSSIBILE);
@@ -65,13 +65,13 @@ public class Main {
                                 System.out.println(CREAZIONE_IMPOSSIBILE);
                             break;
                         case 3:
-                            if(sistema.removePianeta(InputDati.leggiStringa(MESSAGGIO_RIMOZIONE)))
+                            if (sistema.removePianeta(InputDati.leggiStringa(MESSAGGIO_RIMOZIONE)))
                                 System.out.println(MESSAGGIO_RIMOZIONE_COMPLETATA);
                             else
                                 System.out.println(MESSAGGIO_RIMOZIONE_FALLITO);
                             break;
                         case 4:
-                            if(sistema.removeLuna(InputDati.leggiStringa(MESSAGGIO_LUNA), InputDati.leggiStringa(MESSAGGIO_RIMOZIONE)))
+                            if (sistema.removeLuna(InputDati.leggiStringa(MESSAGGIO_LUNA), InputDati.leggiStringa(MESSAGGIO_RIMOZIONE)))
                                 System.out.println(MESSAGGIO_RIMOZIONE_COMPLETATA);
                             else
                                 System.out.println(MESSAGGIO_RIMOZIONE_FALLITO);
@@ -107,7 +107,7 @@ public class Main {
                     break;
                 case 6:
                     ricercato = sistema.trovaCorpoCeleste(InputDati.leggiStringaNonVuota("Inserire il corpo celeste di cui si vuole conoscere la posizione relativa: "));
-                    if(ricercato != null)
+                    if (ricercato != null)
                         System.out.println(ricercato.posizioneRelativa(sistema.trovaPianeta(InputDati.leggiStringaNonVuota("Inserire il pianeta da utilizzare come riferimento: "))).coordinate());
                     else
                         System.out.println("Corpo celeste non presente");
@@ -130,7 +130,7 @@ public class Main {
         System.out.println("La stella si trova nella posizione (0, 0)");
         return new SistemaStellare(new Stella(nomeStella, massa));
     }
-    private static Pianeta initPianeta(){
+    private static Pianeta initPianeta() {
         String nome;
         double massa, x, y;
         Punto posizione;
@@ -144,7 +144,7 @@ public class Main {
         return new Pianeta(nome,massa,posizione);
     }
 
-    private static Luna initLuna(){
+    private static Luna initLuna() {
         String nome;
         double massa, x, y;
         Punto posizione;
