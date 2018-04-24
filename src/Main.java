@@ -11,7 +11,8 @@ public class Main {
     private static final String MESSAGGIO_RIMOZIONE_COMPLETATA = "Il corpo celeste e' stato rimosso con successo";
     private static final String AGGIUNTA_RIMOZIONE = "Aggiungere/Rimuovere corpo celeste";
     private static final String MESSAGGIO_CENTRO = "Il centro di massa del sistema stellare e': ";
-    private static final String MESSAGGIO_PERCORSO_RELATIVO = "Calcolo del posizione relativa";
+    private static final String MESSAGGIO_POSIZIONE_RELATIVO = "Calcolo del posizione relativa";
+    private static final String MESSAGGIO_ROTTA = "Calcolo del percorso";
 
     private static final int MIN_MASSA = 0;
 
@@ -21,7 +22,7 @@ public class Main {
     private static final String RIMOZIONE_PIANETA = "Rimuovere pianeta ";
     private static final String RIMOZIONE_LUNA = "Rimuovere luna";
     private static final String RICERCA_CORPO_CELESTE = "Ricerca corpo celeste";
-    private static final String LUNE_ORBITANTI = "Visualizzazione lune orbitanti intorno da un pianeta";
+    private static final String LUNE_ORBITANTI = "Visualizzazione lune orbitanti intorno a un pianeta";
     private static final String CALCOLO_CENTRO= "Calcolo del centro di massa";
     private static final String CALCOLO_PERCORSO = "Calcolo percorso verso una luna";
     private static final String MESSAGGIO_RIMOZIONE_FALLITO ="Operazione fallita: corpo celeste non trovato";
@@ -31,7 +32,7 @@ public class Main {
     private static final String[] OPZIONI_MENU = {
             AGGIUNTA_RIMOZIONE, RICERCA_CORPO_CELESTE,
             LUNE_ORBITANTI, CALCOLO_CENTRO, CALCOLO_PERCORSO,
-            MESSAGGIO_PERCORSO_RELATIVO
+            MESSAGGIO_POSIZIONE_RELATIVO, MESSAGGIO_ROTTA
     };
     private static final String[] OPZIONI_MENU_ADD_REMOVE = {
             AGGIUNTA_PIANETA,AGGIUNTA_LUNA,
@@ -48,11 +49,11 @@ public class Main {
         sistema.initMassaTotale();
         do {
             scelta = menu.scegli();
-            switch (scelta){
+            switch (scelta) {
                 case 1:
-                    switch (menuAddRemove.scegli()){
+                    switch (menuAddRemove.scegli()) {
                         case 1:
-                            if(sistema.addPianeta(initPianeta()))
+                            if (sistema.addPianeta(initPianeta()))
                                 System.out.println(SUCCESO_CREAZIONE);
                             else
                                 System.out.println(CREAZIONE_IMPOSSIBILE);
@@ -64,13 +65,13 @@ public class Main {
                                 System.out.println(CREAZIONE_IMPOSSIBILE);
                             break;
                         case 3:
-                            if(sistema.removePianeta(InputDati.leggiStringa(MESSAGGIO_RIMOZIONE)))
+                            if (sistema.removePianeta(InputDati.leggiStringa(MESSAGGIO_RIMOZIONE)))
                                 System.out.println(MESSAGGIO_RIMOZIONE_COMPLETATA);
                             else
                                 System.out.println(MESSAGGIO_RIMOZIONE_FALLITO);
                             break;
                         case 4:
-                            if(sistema.removeLuna(InputDati.leggiStringa(MESSAGGIO_LUNA), InputDati.leggiStringa(MESSAGGIO_RIMOZIONE)))
+                            if (sistema.removeLuna(InputDati.leggiStringa(MESSAGGIO_LUNA), InputDati.leggiStringa(MESSAGGIO_RIMOZIONE)))
                                 System.out.println(MESSAGGIO_RIMOZIONE_COMPLETATA);
                             else
                                 System.out.println(MESSAGGIO_RIMOZIONE_FALLITO);
@@ -82,7 +83,7 @@ public class Main {
                 case 2:
                     ricercato = sistema.trovaCorpoCeleste(InputDati.leggiStringaNonVuota("Inserire il nome del corpo celeste: "));
                     if (ricercato != null)
-                        System.out.println(ricercato.toString());//wait
+                        System.out.println(ricercato.toString());
                     else
                         System.out.println("Corpo celeste non presente nel sistema");
                     break;
@@ -100,16 +101,20 @@ public class Main {
                 case 5:
                     CorpoCeleste[] percorso = sistema.getPercorso(InputDati.leggiStringaNonVuota("Inserire nome della luna: "));
                     if (percorso != null)
-                        System.out.println(sistema.getStella().getNome() + " -> " + percorso[0].getNome() + " -> " + percorso[1].getNome());//wait
+                        System.out.println(sistema.getStella().getNome() + " -> " + percorso[0].getNome() + " -> " + percorso[1].getNome());
                     else
                         System.out.println("Luna non presente nel sistema");
                     break;
                 case 6:
                     ricercato = sistema.trovaCorpoCeleste(InputDati.leggiStringaNonVuota("Inserire il corpo celeste di cui si vuole conoscere la posizione relativa: "));
-                    if(ricercato != null)
+                    if (ricercato != null)
                         System.out.println(ricercato.posizioneRelativa(sistema.trovaPianeta(InputDati.leggiStringaNonVuota("Inserire il pianeta da utilizzare come riferimento: "))).coordinate());
                     else
                         System.out.println("Corpo celeste non presente");
+                    break;
+                case 7:
+                    System.out.println(sistema.calcoloRotta(InputDati.leggiStringaNonVuota("Inserisci corpo celeste di partenza: "), InputDati.leggiStringaNonVuota("Inserisci corpo celeste di arrivo: ")));
+                    break;
                 default:
                     break;
             }
@@ -125,7 +130,7 @@ public class Main {
         System.out.println("La stella si trova nella posizione (0, 0)");
         return new SistemaStellare(new Stella(nomeStella, massa));
     }
-    private static Pianeta initPianeta(){
+    private static Pianeta initPianeta() {
         String nome;
         double massa, x, y;
         Punto posizione;
@@ -139,7 +144,7 @@ public class Main {
         return new Pianeta(nome,massa,posizione);
     }
 
-    private static Luna initLuna(){
+    private static Luna initLuna() {
         String nome;
         double massa, x, y;
         Punto posizione;
