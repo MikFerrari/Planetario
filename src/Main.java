@@ -128,15 +128,15 @@ public class Main {
     private static Pianeta initPianeta(){
         String nome;
         double massa, x, y;
-        Punto posizone;
+        Punto posizione;
 
         nome = InputDati.leggiStringaNonVuota(NOME_CORPO_CELESTE);
         massa = InputDati.leggiDoubleConMinimo(String.format(INSERIMENTO_MASSA, nome), MIN_MASSA);
         System.out.println(MESSAGGIO_COORDINATE);
         x = InputDati.leggiDouble("x: ");
         y = InputDati.leggiDouble("y: ");
-        posizone = new Punto(x, y, nome);
-        return new Pianeta(nome,massa,posizone);
+        posizione = new Punto(x, y, nome);
+        return new Pianeta(nome,massa,posizione);
     }
 
     private static Luna initLuna(){
