@@ -1,7 +1,10 @@
 import java.util.ArrayList;
+import java.text.DecimalFormat;
+
 
 public class SistemaStellare {
 
+	private DecimalFormat cifre= new DecimalFormat("#,###,##0.000");
 
 	private static final int MAX_PIANETI = 26000;
 	private static final int ELEMENTI_PERCORSO = 2;
@@ -216,5 +219,54 @@ public class SistemaStellare {
 			}
 		}
 		return null;
+	}
+
+	public String calcoloRotta(String partenza, String arrivo) {
+		double distanza;
+		//controllo stella
+		if(partenza.equals(stella.getNome()) || arrivo.equals(stella.getNome())){
+			return "Non si può stare su una stella!";
+		}
+		if(trovaCorpoCeleste(partenza) == null || trovaCorpoCeleste(arrivo) == null){
+			return  "Corpo celeste non presente nel sistema";
+		}
+
+		//Sono due pianeti
+		if (trovaPianeta(partenza) != null && trovaPianeta(arrivo) != null) {
+			distanza = trovaPianeta(partenza).getPosizione().distanza(stella.getPosizione()) + trovaPianeta(arrivo).getPosizione().distanza(stella.getPosizione());
+			return trovaPianeta(partenza).getNome() + " -> " + stella.getNome() + " -> " + trovaPianeta(arrivo).getNome() + "\nLa distanza del traggitto e': " + cifre.format(distanza);
+		}
+		//Sono 2 lune
+		else if(trovaPianeta(partenza) == null && trovaPianeta(arrivo) == null) {
+			CorpoCeleste percorsoA[] = getPercorso(partenza);
+			CorpoCeleste percorsoB[] = getPercorso(arrivo);
+			//Lune dello stesso pianeta
+			if (percorsoA[0].getNome().equals(percorsoB[0].getNome())){
+				distanza = percorsoA[1].getPosizione().distanza(percorsoA[0].getPosizione()) + percorsoA[0].getPosizione().distanza( percorsoB[1].getPosizione());
+
+				return percorsoA[1].getNome() + " -> " + percorsoA[0].getNome() + " -> " + percorsoB[1].getNome() + "\nLa distanza del traggitto e': " + cifre.format(distanza);
+			}
+			//Lune di pianeti diversi
+			else {
+				distanza = percorsoA[1].getPosizione().distanza(percorsoA[0].getPosizione()) + percorsoA[0].getPosizione().distanza(stella.getPosizione()) +  percorsoB[1].getPosizione().distanza(percorsoB[0].getPosizione()) + percorsoB[0].getPosizione().distanza(stella.getPosizione());
+
+				return percorsoA[1].getNome() + " -> " + percorsoA[0].getNome() + " -> " + stella.getNome() + " -> " + percorsoB[0].getNome() + " -> " + percorsoB[1].getNome() + "\nLa distanza del traggitto e': " + cifre.format(distanza);
+			}
+		}
+		//Il primo è un pianeta
+		else if(trovaPianeta(partenza) != null ) {
+			CorpoCeleste percorso[] = getPercorso(arrivo);
+			distanza = percorso[1].getPosizione().distanza(percorso[0].getPosizione()) + percorso[0].getPosizione().distanza(stella.getPosizione()) + stella.getPosizione().distanza(trovaPianeta(partenza).getPosizione());
+
+			return trovaPianeta(partenza).getNome() + " -> " + stella.getNome() + " -> " + percorso[0].getNome() + " -> " + percorso [1].getNome() + "\nLa distanza del traggitto e': " + cifre.format(distanza);
+
+		}
+		//Il secondo è un pianeta
+		else {
+			CorpoCeleste percorso[] = getPercorso(partenza);
+			distanza = percorso[1].getPosizione().distanza(percorso[0].getPosizione()) + percorso[0].getPosizione().distanza(stella.getPosizione()) + stella.getPosizione().distanza(trovaPianeta(arrivo).getPosizione());
+			return percorso[1].getNome() + " -> " +  percorso[0].getNome() + " -> " + stella.getNome() + " -> "+ trovaPianeta(arrivo).getNome() + "\nLa distanza del traggitto e': " + cifre.format(distanza);
+		}
+
 	}
 }

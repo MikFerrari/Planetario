@@ -23,8 +23,9 @@ public class Punto {
 	//Calcola la distanza tra due punti
 	
 	public double distanza(Punto p1) {
+		double risultato;
 		double differenzaQuadrati = Math.pow((p1.ascissa-ascissa),2)+Math.pow((p1.ordinata-ordinata),2);
-		return  Math.sqrt(differenzaQuadrati);	
+		return Math.sqrt(differenzaQuadrati);
 		
 	}
 	

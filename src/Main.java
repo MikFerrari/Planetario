@@ -11,7 +11,8 @@ public class Main {
     private static final String MESSAGGIO_RIMOZIONE_COMPLETATA = "Il corpo celeste e' stato rimosso con successo";
     private static final String AGGIUNTA_RIMOZIONE = "Aggiungere/Rimuovere corpo celeste";
     private static final String MESSAGGIO_CENTRO = "Il centro di massa del sistema stellare e': ";
-    private static final String MESSAGGIO_PERCORSO_RELATIVO = "Calcolo del posizione relativa";
+    private static final String MESSAGGIO_POSIZIONE_RELATIVO = "Calcolo del posizione relativa";
+    private static final String MESSAGGIO_ROTTA = "Calcolo del percorso";
 
     private static final int MIN_MASSA = 0;
 
@@ -31,7 +32,7 @@ public class Main {
     private static final String[] OPZIONI_MENU = {
             AGGIUNTA_RIMOZIONE, RICERCA_CORPO_CELESTE,
             LUNE_ORBITANTI, CALCOLO_CENTRO, CALCOLO_PERCORSO,
-            MESSAGGIO_PERCORSO_RELATIVO
+            MESSAGGIO_POSIZIONE_RELATIVO, MESSAGGIO_ROTTA
     };
     private static final String[] OPZIONI_MENU_ADD_REMOVE = {
             AGGIUNTA_PIANETA,AGGIUNTA_LUNA,
@@ -82,7 +83,7 @@ public class Main {
                 case 2:
                     ricercato = sistema.trovaCorpoCeleste(InputDati.leggiStringaNonVuota("Inserire il nome del corpo celeste: "));
                     if (ricercato != null)
-                        System.out.println(ricercato.toString());//wait
+                        System.out.println(ricercato.toString());
                     else
                         System.out.println("Corpo celeste non presente nel sistema");
                     break;
@@ -100,7 +101,7 @@ public class Main {
                 case 5:
                     CorpoCeleste[] percorso = sistema.getPercorso(InputDati.leggiStringaNonVuota("Inserire nome della luna: "));
                     if (percorso != null)
-                        System.out.println(sistema.getStella().getNome() + " -> " + percorso[0].getNome() + " -> " + percorso[1].getNome());//wait
+                        System.out.println(sistema.getStella().getNome() + " -> " + percorso[0].getNome() + " -> " + percorso[1].getNome());
                     else
                         System.out.println("Luna non presente nel sistema");
                     break;
@@ -110,6 +111,10 @@ public class Main {
                         System.out.println(ricercato.posizioneRelativa(sistema.trovaPianeta(InputDati.leggiStringaNonVuota("Inserire il pianeta da utilizzare come riferimento: "))).coordinate());
                     else
                         System.out.println("Corpo celeste non presente");
+                    break;
+                case 7:
+                    System.out.println(sistema.calcoloRotta(InputDati.leggiStringaNonVuota("Inserisci corpo celeste di partenza: "), InputDati.leggiStringaNonVuota("Inserisci corpo celeste di arrivo: ")));
+                    break;
                 default:
                     break;
             }
