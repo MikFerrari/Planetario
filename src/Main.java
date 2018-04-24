@@ -1,9 +1,6 @@
 import it.unibs.fp.mylib.InputDati;
 import it.unibs.fp.mylib.MyMenu;
 
-import java.util.Scanner;
-
-
 public class Main {
     private static final String MESSAGGIO_BENVENUTO = "Buongiorno, benvenuto nel programma per la gestione dei sistemi stellari!";
     private static final String INSERIMENTO_NOME_STELLA = "Inserisca il nome della stella ";
@@ -14,6 +11,8 @@ public class Main {
     private static final String MESSAGGIO_RIMOZIONE_COMPLETATA = "Il corpo celeste e' stato rimosso con successo";
     private static final String AGGIUNTA_RIMOZIONE = "Aggiungere/Rimuovere corpo celeste";
     private static final String MESSAGGIO_CENTRO = "Il centro di massa del sistema stellare e': ";
+    private static final String MESSAGGIO_PERCORSO_RELATIVO = "Calcolo del posizione relativa";
+
     private static final int MIN_MASSA = 0;
 
     private static final String TITOLO_MENU = "Selezioni un'opzione";
@@ -30,9 +29,9 @@ public class Main {
     private static final String MESSAGGIO_LUNA = "Inserisci il pianeta intorno al quale orbita la luna: ";
     private static final String CREAZIONE_IMPOSSIBILE = "Impossibile creare corpo celeste";
     private static final String[] OPZIONI_MENU = {
-            AGGIUNTA_RIMOZIONE,
-            RICERCA_CORPO_CELESTE, LUNE_ORBITANTI,
-            CALCOLO_CENTRO, CALCOLO_PERCORSO
+            AGGIUNTA_RIMOZIONE, RICERCA_CORPO_CELESTE,
+            LUNE_ORBITANTI, CALCOLO_CENTRO, CALCOLO_PERCORSO,
+            MESSAGGIO_PERCORSO_RELATIVO
     };
     private static final String[] OPZIONI_MENU_ADD_REMOVE = {
             AGGIUNTA_PIANETA,AGGIUNTA_LUNA,
@@ -44,6 +43,8 @@ public class Main {
         MyMenu menu = new MyMenu(TITOLO_MENU, OPZIONI_MENU);
         MyMenu menuAddRemove = new MyMenu(TITOLO_MENU, OPZIONI_MENU_ADD_REMOVE);
         SistemaStellare sistema = init();
+        CorpoCeleste ricercato;
+        Pianeta pianetaRicercato;
         sistema.initMassaTotale();
         do {
             scelta = menu.scegli();
@@ -79,16 +80,16 @@ public class Main {
                     }
                     break;
                 case 2:
-                    CorpoCeleste ricercato = sistema.trovaCorpoCeleste(InputDati.leggiStringaNonVuota("Inserire il nome del corpo celeste: "));
+                    ricercato = sistema.trovaCorpoCeleste(InputDati.leggiStringaNonVuota("Inserire il nome del corpo celeste: "));
                     if (ricercato != null)
                         System.out.println(ricercato.toString());//wait
                     else
                         System.out.println("Corpo celeste non presente nel sistema");
                     break;
                 case 3:
-                    Pianeta ricercato1 = sistema.trovaPianeta(InputDati.leggiStringaNonVuota("Inserire nome pianeta di cui visualizzare le lune: "));
-                    if (ricercato1 != null)
-                        System.out.println(ricercato1.getLune().toString());//wait
+                    pianetaRicercato = sistema.trovaPianeta(InputDati.leggiStringaNonVuota("Inserire nome pianeta di cui visualizzare le lune: "));
+                    if (pianetaRicercato != null)
+                        System.out.println(pianetaRicercato.getLune().toString());//wait
                     else
                         System.out.println("Pianeta non presente nel sistema");
                     break;
@@ -103,6 +104,12 @@ public class Main {
                     else
                         System.out.println("Luna non presente nel sistema");
                     break;
+                case 6:
+                    ricercato = sistema.trovaCorpoCeleste(InputDati.leggiStringaNonVuota("Inserire il corpo celeste di cui si vuole conoscere la posizione relativa: "));
+                    if(ricercato != null)
+                        System.out.println(ricercato.posizioneRelativa(sistema.trovaPianeta(InputDati.leggiStringaNonVuota("Inserire il pianeta da utilizzare come riferimento: "))).coordinate());
+                    else
+                        System.out.println("Corpo celeste non presente");
                 default:
                     break;
             }
@@ -115,6 +122,7 @@ public class Main {
         System.out.println(MESSAGGIO_BENVENUTO);
         nomeStella = InputDati.leggiStringaNonVuota(INSERIMENTO_NOME_STELLA);
         massa = InputDati.leggiDoubleConMinimo(String.format(INSERIMENTO_MASSA, nomeStella), MIN_MASSA);
+        System.out.println("La stella si trova nella posizione (0, 0)");
         return new SistemaStellare(new Stella(nomeStella, massa));
     }
     private static Pianeta initPianeta(){
@@ -122,12 +130,11 @@ public class Main {
         double massa, x, y;
         Punto posizone;
 
-        Scanner tastiera = new Scanner(System.in);
         nome = InputDati.leggiStringaNonVuota(NOME_CORPO_CELESTE);
         massa = InputDati.leggiDoubleConMinimo(String.format(INSERIMENTO_MASSA, nome), MIN_MASSA);
-        System.out.print(MESSAGGIO_COORDINATE);
-        x = tastiera.nextDouble();
-        y = tastiera.nextDouble();
+        System.out.println(MESSAGGIO_COORDINATE);
+        x = InputDati.leggiDouble("x: ");
+        y = InputDati.leggiDouble("y: ");
         posizone = new Punto(x, y, nome);
         return new Pianeta(nome,massa,posizone);
     }
@@ -137,13 +144,11 @@ public class Main {
         double massa, x, y;
         Punto posizone;
 
-        Scanner tastiera = new Scanner(System.in);
         nome = InputDati.leggiStringaNonVuota(NOME_CORPO_CELESTE);
         massa = InputDati.leggiDoubleConMinimo(String.format(INSERIMENTO_MASSA, nome), MIN_MASSA);
-        System.out.print(MESSAGGIO_COORDINATE);
-        x = tastiera.nextDouble();
-        y = tastiera.nextDouble();
-
+        System.out.println(MESSAGGIO_COORDINATE);
+        x = InputDati.leggiDouble("x: ");
+        y = InputDati.leggiDouble("y: ");
         posizone = new Punto(x, y, nome);
         return new Luna(nome,massa,posizone);
     }
